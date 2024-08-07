@@ -24,20 +24,20 @@ fn draw_triangle(points: &mut Vec<Vector2D<f64>>) -> &mut Vec<Vector2D<f64>> {
 /// A recursive function to generate the points of a Kotch curve given two starting points. Returns
 /// a Vec of Vector2D to be plotted
 pub fn generate_koch(p1: Vector2D<f64>, p2: Vector2D<f64>, depth: u16) -> Vec<Vector2D<f64>> {
-    if depth == 0 {
-        return None;
-    }
-
     // Split the line and generate the triangle
     let mut line = split_into(p1, p2, 3);
 
     draw_triangle(&mut line);
 
+    if depth == 0 {
+        return line;
+    }
+
     // -1 as this is the sections not the points
     for i in 0..line.len() - 1 {
         // Be careful if point 1 is
         // duplicated. Probably not an issue but good to look out for
-        line.insert(i, generate_koch(line[i], line[i + 1], depth - 1))
+        line.splice(i..i, generate_koch(line[i], line[i + 1], depth - 1));
     }
     return line;
 }
