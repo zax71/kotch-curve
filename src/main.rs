@@ -1,11 +1,15 @@
 use kotch::generate_koch;
+use svg::generate_svg;
 use vector2d::Vector2D;
 mod kotch;
+mod svg;
 
 fn main() {
     println!("Hello, world!");
 
-    let line = generate_koch(Vector2D::new(5.0, 5.0), Vector2D::new(6.0, 3.0), 1);
+    let line = generate_koch(Vector2D::new(0.0, 50.0), Vector2D::new(100.0, 50.0), 3);
 
-    println!("{:#?}", line)
+    let svg = generate_svg(line);
+
+    println!("{}", svg)
 }
